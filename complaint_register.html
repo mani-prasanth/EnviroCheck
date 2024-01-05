@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Upload</title>
+    <link rel="shortcut icon" href="images/favicon.jpg">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url('images/background.jpg');
+            backdrop-filter: blur(3px);
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: hsl(0, 100%, 96%); /* Dark text color */
+        }
+
+        form {
+            background-color: rgba(24, 24, 24, 0.2); 
+            padding: 20px;
+            border-radius: 2px;
+            border-color: #F1F1F1;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            box-shadow: #F1F1F1;
+            width: 90%; /* Adjust form width */
+            max-width: 600px; /* Set maximum width */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: hsl(0, 100%, 96%);/* Dark gray text color */
+            font-size: large;
+        }
+
+        input, textarea {
+            font-family: 'Lora', serif;
+            font-size: 100%;
+            background-color: #F1F1F1;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #303030;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input#data {
+            height: 100px;
+            resize: none;
+        }
+
+        button {
+            background-color: #5B61AB;
+            color: #ffffff;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: auto;
+            align-self: center;
+            background-image: linear-gradient(to right, #fda085 0%, #fda085 51%, #fda085 100%);
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #3F4377;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+        }
+
+        #mediaPreview {
+            max-width: 100%;
+            max-height: 200px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <form method="post" enctype="multipart/form-data">
+        <h1>Details of the Pollution</h1>
+        <label for="cause_of_pollution"><b>Cause of Pollution:</b></label>
+        <input type="text" id="cause_of_pollution" name="cause_of_pollution" required >
+
+        <label for="locality"><b>Locality:</b></label>
+        <input type="text" id="locality" name="locality" required>
+
+        <label for="data"><b>Description:</b></label>
+        <textarea id="data" name="data" required></textarea>
+
+        <label for="media"><b>Media:</b></label>
+        <input type="file" id="media" name="media" onchange="previewMedia(this)">
+        <div id="mediaPreview">
+        <button type="submit">Submit</button>
+    </div>
+    </form>
+
+    <script>
+        function previewMedia(input) {
+            const mediaPreview = document.getElementById('mediaPreview');
+
+            if (input.files && input.files[0]) {
+                const fileType = input.files[0].type;
+                const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                const validVideoTypes = ['video/mp4', 'video/mpeg', 'video/quicktime'];
+
+                if (validImageTypes.includes(fileType)) {
+                    previewImage(input, mediaPreview);
+                } else if (validVideoTypes.includes(fileType)) {
+                    previewVideo(input, mediaPreview);
+                } else {
+                    mediaPreview.innerHTML = 'Unsupported file type';
+                }
+            } else {
+                mediaPreview.innerHTML = '';
+            }
+        }
+
+        function previewImage(input, previewContainer) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const imgElement = document.createElement('img');
+                imgElement.src = e.target.result;
+                imgElement.alt = 'Media Preview';
+                imgElement.style.maxWidth = '100%';
+                imgElement.style.maxHeight = '200px';
+
+                previewContainer.innerHTML = '';
+                previewContainer.appendChild(imgElement);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function previewVideo(input, previewContainer) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const videoElement = document.createElement('video');
+                videoElement.src = e.target.result;
+                videoElement.alt = 'Media Preview';
+                videoElement.style.maxWidth = '100%';
+                videoElement.style.maxHeight = '200px';
+                videoElement.setAttribute('controls', 'controls');
+
+                previewContainer.innerHTML = '';
+                previewContainer.appendChild(videoElement);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    </script>
+</body>
+</html>

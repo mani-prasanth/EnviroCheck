@@ -1,0 +1,355 @@
+<?php
+session_start();
+include "connect.php";
+$mobilenumber=$_SESSION['mobilenumber'];
+$sql="SELECT Fullname from register where mobile_number='$mobilenumber'";
+$sql1=mysqli_query($con,$sql);
+$run = mysqli_fetch_assoc($sql1);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="footer.css" rel="stylesheet">
+	  <title>EnviroCheck </title>
+    <link rel="shortcut icon" href="images/favicon.jpg" >
+	  <style>
+.gallery {
+  --s:350px; /* the size */
+  
+  display: grid;
+  transform-style: preserve-3d;
+  --_p: perspective(calc(2.5*var(--s)));
+  animation: r 15s infinite cubic-bezier(.5,-0.5,.5,1.5);
+}
+.gallery img {
+  grid-area: 1/1;
+  width: var(--s);
+  aspect-ratio: 1;
+  object-fit: cover;
+  transform: var(--_t,) translateZ(calc(var(--s)/2));
+}
+.gallery img:nth-child(2) {--_t: rotateX(-90deg)}
+.gallery img:nth-child(3) {--_t: rotateY( 90deg)}
+.gallery img:nth-child(4) {--_t: rotateX(180deg) rotate( 90deg)}
+.gallery img:nth-child(5) {--_t: rotateX( 90deg)}
+.gallery img:nth-child(6) {--_t: rotateY(-90deg)}
+
+@keyframes r {
+  0%,3%   {transform: var(--_p) rotate3d(0, 0, 0, 0deg)}
+  14%,19% {transform: var(--_p) rotate3d(-1, 1, 0, 180deg)}
+  31%,36% {transform: var(--_p) rotate3d(0, -1, 0, 90deg)}
+  47%,52% {transform: var(--_p) rotate3d(1, 0, 0, 90deg)}
+  64%,69% {transform: var(--_p) rotate3d(1, 0, 0, -90deg)}
+  81%,86% {transform: var(--_p) rotate3d(0, 1, 0, 90deg)}
+  97%,100%{transform: var(--_p) rotate3d(0, 0, 0, 0deg)}
+}
+body {
+  background-image: url('images/frontimg.jpeg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(2px);
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+}
+
+@keyframes b {
+  0%,3%   {background: #774F38}
+  14%,19% {background: #C5E0DC}
+  31%,36% {background: #036564}
+  45%,55% {background: #B38184}
+  64%,69% {background: #424254}
+  81%,86% {background: #4DBCE9}
+  97%,to  {background: #774F38}
+}
+
+
+
+
+</style>
+</head>
+<body>
+	
+<hr>
+<header class="text-black-900 body-font font-size-20">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a class="flex title-font font-medium items-center text-black-5000 mb-4 md:mb-0">
+      
+      <span class="ml-3 text-xl" style="font-size: 30px; text-shadow: 1px 1px 4px; color: #ffffff;"><b>EnviroCheck</b></span>
+    </a>
+</hr>    
+
+    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+      <a href="#home"class="mr-5 hover:text-blue-500" style="font-family: 'Fira Sans', sans-serif;">Home</a>
+        <a href="#services"class="mr-5 hover:text-blue-500" style="font-family: 'Fira Sans', sans-serif;">Services</a>
+        <a href="/"class="mr-5 hover:text-blue-500" style="font-family: 'Fira Sans', sans-serif;">About</a>
+        <a href="/"class="mr-5 hover:text-blue-500" style="font-family: 'Fira Sans', sans-serif;">Contact</a>
+        <a href="complaint.html" class="mr-5 hover:text-blue-500" style="font-family: 'Fira Sans', sans-serif;">Complaint</a>
+    </nav>
+    <button class="inline-flex items-center bg-yellow-400 border-0 py-1 px-3 focus:outline-none hover:bg-yellow-200 rounded text-base mt-4 md:mt-0"><a href="logout.php">Logout</a>
+      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </button>
+
+  </div>
+</header>
+  <section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-12 py-24 md:flex-row flex-col items-center">
+      <div class="gallery">
+        <img src="images/1.jpg" width="400" height="400">
+		<img src="images/2.jpg" width="400" height="400">
+		<img src="images/3.jpg" width="400" height="400">
+		<img src="images/4.jpg" width="400" height="400">
+		<img src="images/7.jpg" width="400" height="400">
+		<img src="images/6.jpg" width="400" height="400">
+  
+      </div>
+      <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center" id="home">
+      <h2 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900" style="padding-bottom:2%;"> Welcome <?php echo $run['Fullname']; ?></h3>
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900" style="color: #ffffff; font-family: 'Lato', sans-serif; letter-spacing: 1px; width:100%; height:80%; float:center; background-color:rgba(0, 0, 0, 0.5); text-align:center; padding-bottom: 3%; padding-top: 3%;"><b>An Initiative towards a cleaner and healthier environment.</b>
+          <br class="hidden lg:inline-block">
+        </h1>
+        <p class="mb-8 leading-relaxed" style="color: #000000; font-family: 'Lato', sans-serif;">We get our pollution reports from the local people itself to be sure that the issue is genuine and make their voice reach the authorities.</p>
+        <div class="flex justify-center">
+          <script>
+          function clickhere() {   
+          window.open("https://aqli.epic.uchicago.edu/country-spotlight/india/");  
+          }	            
+          </script>
+          <button onclick="clickhere()" class="inline-flex text-black bg-yellow-100 border-0 py-3 px-5 focus:outline-none hover:bg-yellow-400 rounded text-lg">Learn more about pollution in our country.</button>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-col text-center w-full mb-20">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Some of the major types of pollution.</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base" style="color:#000000;">You can take a look at the major types of pollution which have impact on the environment.</p>
+      </div>
+      <div class="flex flex-wrap -m-4">
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="images/8.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Air Pollution</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Breathing in Crisis: Air pollution at a glance.</h1>
+              <p class="leading-relaxed">The presence of harmful substances, such as particulate matter, gases, and biological molecules, in the Earth's atmosphere can arise from natural sources or human activities, leading to a degradation of air quality. </p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="images/9.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Water Pollution</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Liquid Perils: Understanding the Realities of Water Pollution</h1>
+              <p class="leading-relaxed">Water pollution is the contamination of water bodies with contaminants. These contaminants can include chemicals, industrial runoff, sewage, waste disposal, and other harmful materials that affect the quality of water.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="images/10.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Soil Pollution</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Beneath the Surface: Unveiling the Menace of Soil Pollution</h1>
+              <p class="leading-relaxed">Contamination of soil with harmful substances, including industrial chemicals, agricultural pesticides, and waste materials. It affects soil fertility, disrupts ecosystems, and poses risks to human health through the food chain</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="images/11.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Noise Pollution</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Decibel Dangers: The Unseen Effects of Noise Pollution.</h1>
+              <p class="leading-relaxed">Noise pollution is the presence of excessive or disturbing noise that disrupts the normal acoustic environment.
+                Persistent exposure to noise pollution can have an adverse effect on human health,wildlife and overall well-being.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="images/12.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Light Pollution</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Lost in the Glow: Unveiling the Challenges and Consequences of Light Pollution</h1>
+              <p class="leading-relaxed">Light pollution refers to the excessive, misdirected, or obtrusive artificial light that brightens the night sky, obscures celestial visibility, and disrupts natural ecosystems. It can negatively impact human health.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:w-1/3 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center" src="images/13.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Radioactive Pollution</h2>
+              <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Nuclear Fallout: Tracing the Invisible Threats of Radioactive Pollution</h1>
+              <p class="leading-relaxed">Radioactive pollution involves the release of ionizing radiation from nuclear and radioactive substances, contaminating the environment. It arises from nuclear accidents, improper disposal of radioactive waste. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="text-gray-400 bg-gray-900 body-font">
+    <div class="container px-5 py-24 mx-auto flex flex-wrap">
+      <div class="flex flex-wrap w-full">
+        <div class="lg:w-2/5 md:w-1/2 md:pr-10 md:py-6">
+          <div class="flex relative pb-12">
+            <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
+            </div>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div> 
+           <div>  
+            <div class="flex-grow pl-4">
+              <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">WAY 1</h2>
+              <p class="leading-relaxed">You can use our community model and get the pollution happening around you to get noticed by your neighbouring people.That is by posting a poll.</p>
+            </div>
+          </div>
+          </div>
+          <div class="flex relative pb-12">
+            <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
+            </div>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+            </div>
+            <div class="flex-grow pl-4">
+     
+              <p class="leading-relaxed">After raising the poll just wait for it to be approved by the people of your locality,then you can just sit back and relax, we will take care of the rest from here. </p>
+            </div>
+          </div>
+          <div class="flex relative pb-12">
+            <div class="h-full w-10 absolute inset-0 flex items-center justify-center">
+              <div class="h-full w-1 bg-gray-800 pointer-events-none"></div>
+            </div>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <circle cx="12" cy="5" r="3"></circle>
+                <path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"></path>
+              </svg>
+            </div>
+            <div class="flex-grow pl-4">
+              <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">WAY 2</h2>
+              <p class="leading-relaxed">You can also use our personal model in which we provide a device which detects the pollution in your surroundings by measuring the temperature,humidity and harmful gases using various sensors.</p>
+            </div>
+          </div>
+          <div class="flex relative">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-indigo-500 inline-flex items-center justify-center text-white relative z-10">
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
+                <path d="M22 4L12 14.01l-3-3"></path>
+              </svg>
+            </div>
+            <div class="flex-grow pl-4">
+              <h2 class="font-medium title-font text-sm text-white mb-1 tracking-wider">YOU'RE READY..!!</h2>
+              <p class="leading-relaxed">After using any of the above models, you are ready to experience a cleaner and healthier environment.</p>
+            </div>
+          </div>
+        </div>
+        <img class="lg:w-3/5 md:w-1/2 object-cover object-center rounded-lg md:mt-0 mt-12" src=https://source.unsplash.com/1200x500/?pollution alt="step">
+      </div>
+    </div>
+  </section>
+  
+  <div class="flex flex-col text-center w-full mb-20" id="services">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900" style="padding-top: 5%;">The services we provide</h1>
+		<p class="leading-relaxed">We basically provide two services which help in reducing the pollution.</p>
+  </div>
+   <div class="flex flex-wrap -m-4">
+        <div class="lg:w-1/2 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center px-8" src="images/15.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Community type service model.</h2>
+				<p class="leading-relaxed">In this community type service model we have a website which is open for everyone to use, in which a user can raise a poll 
+				regarding any pollution happening around them and then the other users of the website who are in and around that locality are notified about the poll.
+				Then those users can assure that the issue is genuine by voting yes or no.If a poll gets good number of yes votes then it is escalated and sent to the 
+				respective authorities for them take some action.Then the users are notified about the end result.
+			  </p>
+            </div>
+          </div>
+        </div>
+	
+	<div class="lg:w-1/2 sm:w-1/2 p-4 ">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center px-8" src="images/18.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Personal type service model.</h2>
+              <p class="leading-relaxed">Personal type service model is a very small yet impactful model where we provide a device which contains multiple sensors like LDR,
+			  MQ-4,DHT-11 which read the amount of toxins and various gases in the air. Then if the values go beyond the normal threshold it alerts regarding the limit crossing
+			  values.Then the user can take required precaution to avoid any mishap.With the help of this device the user can be alert and can be safe when compared to other 
+			  people who are not using this device.This device also helps in monitoring remotely.
+			  </p>
+            </div>
+          </div>
+        </div>
+	</div>
+	    <br>
+		<div class="flex flex-col text-center w-full mb-20">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">How are we helping through our models?</h1>
+		<br>
+		<div class="flex flex-wrap -m-4">
+        <div class="lg:w-1/2 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center px-8" src="images/22.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Helping in the environmental pollution.</h2>
+				<p class="leading-relaxed">We help our environment in making it better and cleaner. Our aim is to identify the pollution and reduce it with 
+				                           the help of the respective authorities in making the environment better for the future generations and maintain 
+										   our health too.This is a major help we are doing for the environment.
+			  </p>
+            </div>
+          </div>
+        </div>
+        
+		<div class="lg:w-1/2 sm:w-1/2 p-4">
+          <div class="flex relative">
+            <img alt="gallery" class="absolute inset-0 w-full h-full object-cover object-center px-8" src="images/28.jpg">
+            <div class="px-8 py-10 relative z-10 w-full border-4 border-gray-200 bg-white opacity-0 hover:opacity-100">
+              <h2 class="tracking-widest text-sm title-font font-medium text-indigo-500 mb-1">Helping in maintaining personal surroundings clean.</h2>
+				<p class="leading-relaxed">We provide a personal model where we give a device to the user which can be installed in an indoor 
+				                           environment to check for the values of the gases present in the area,so that the user can take required 
+										   action if any gas goes above the threshold.
+			  </p>
+          </div>
+        </div>
+		</div>
+	</div>
+        </div>
+  <div class="abhi">
+<footer class="footer">
+    <ul class="social-icon">
+      <li class="social-icon_item"><a class="social-icon_link" href="https://www.facebook.com/">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a></li>
+      <li class="social-icon_item"><a class="social-icon_link" href="https://www.twitter.com/">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </a></li>
+      <li class="social-icon_item"><a class="social-icon_link" href="https://www.linkedin.com/">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </a></li>
+      <li class="social-icon_item"><a class="social-icon_link" href="https://www.instagram.com/">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a></li>
+    </ul>
+    <p>&copy;2023 EnviroCheck| All Rights Reserved</p>
+  </footer>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+ </div>
+</html>	 
